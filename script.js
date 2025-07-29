@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, runTransaction, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, runTransaction, onSnapshot, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // --- DOM ELEMENTS ---
 const container = document.getElementById('page-container');
@@ -18,7 +18,8 @@ const firebaseConfig = {
 };
 
 // --- LOCAL MODE (FALLBACK) ---
-function runLocalMode() {
+function runLocalMode(errorMessage = "Firebase not configured. Running in local-only mode.") {
+    console.warn(errorMessage);
     const signedKey = 'agnesTachyonHasSignedUp_local';
     const countKey = 'agnesTachyonGuineaPigCount_local';
     
@@ -50,7 +51,7 @@ function runLocalMode() {
 
 // --- MAIN LOGIC ---
 async function main() {
-    if (!firebaseConfig || firebaseConfig.apiKey.startsWith("AIzaSyDUomBI0i9xQTWnxrJvJXzzQ4u8A8_pU1U")) {
+    if (!firebaseConfig || firebaseConfig.apiKey.startsWith("PASTE_YOUR")) {
         runLocalMode();
         return;
     }
@@ -62,7 +63,7 @@ async function main() {
     try {
         await signInAnonymously(auth);
     } catch (error) {
-        runLocalMode();
+        runLocalMode("Firebase authentication failed. Running in local mode.");
         return;
     }
 
@@ -88,24 +89,21 @@ async function main() {
             await setDoc(counterRef, { count: 0 });
         }
     }, (error) => {
-        runLocalMode();
+        runLocalMode("Error listening to counter. Running in local mode.");
     });
 
     btn.addEventListener('click', async () => {
         btn.disabled = true;
         try {
-            await runTransaction(db, async (transaction) => {
-                const counterDoc = await transaction.get(counterRef);
-                if (!counterDoc.exists()) {
-                    throw "Counter document does not exist!";
-                }
-                const newCount = (counterDoc.data().count || 0) + 1;
-                transaction.update(counterRef, { count: newCount });
-                transaction.set(userStatusRef, { hasSignedUp: true });
-            });
+            const counterUpdatePromise = setDoc(counterRef, { count: increment(1) }, { merge: true });
+            const userUpdatePromise = setDoc(userStatusRef, { hasSignedUp: true });
+            await Promise.all([counterUpdatePromise, userUpdatePromise]);
+            
             container.classList.add('signed-up');
             btn.textContent = 'You are now a guinea pig!';
+
         } catch (e) {
+            console.error("Failed to update counter:", e);
             btn.disabled = false;
             btn.textContent = 'Sign up failed, try again!';
         }
