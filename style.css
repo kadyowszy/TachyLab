@@ -17,6 +17,7 @@ body {
     margin: 0 auto;
     padding: 2rem 1rem;
     box-sizing: border-box;
+    transition: padding-top 0.8s ease-in-out; /* Added for smooth movement */
 }
 
 .main-content {
@@ -27,12 +28,10 @@ body {
 
 /* --- Initial State (Pre-Signup) --- */
 body:not(.signed-up) #page-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 100vh;
+    padding-top: 30vh; /* Pushes the content down to the center */
 }
 
+body:not(.signed-up) .header,
 body:not(.signed-up) #shrine,
 body:not(.signed-up) #gallery,
 body:not(.signed-up) #page-footer {
