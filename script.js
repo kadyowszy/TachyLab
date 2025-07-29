@@ -50,7 +50,7 @@ function runLocalMode() {
 
 // --- MAIN LOGIC ---
 async function main() {
-    if (!firebaseConfig || firebaseConfig.apiKey === "PASTE_YOUR_API_KEY_HERE") {
+    if (!firebaseConfig || firebaseConfig.apiKey.startsWith("AIzaSyDUomBI0i9xQTWnxrJvJXzzQ4u8A8_pU1U")) {
         runLocalMode();
         return;
     }
