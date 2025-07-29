@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=SUSE+Intl:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
 
 /* --- Base and Layout Styles --- */
 html, body {
@@ -6,7 +6,7 @@ html, body {
     margin: 0;
 }
 body {
-    font-family: 'SUSE Intl', sans-serif;
+    font-family: "SUSE", sans-serif;
     background-color: #f0f2f5;
     color: #333;
     overflow-x: hidden;
@@ -88,7 +88,7 @@ body.signed-up #shrine {
     margin-bottom: 1.5rem;
 }
 .signup-button {
-    font-family: 'SUSE Intl', sans-serif;
+    font-family: "SUSE", sans-serif;
     font-weight: 700;
     padding: 0.75rem 2rem;
     font-size: 1.125rem;
@@ -193,14 +193,14 @@ body.signed-up #shrine {
     gap: 0.5rem;
 }
 .chat-input {
-    font-family: 'SUSE Intl', sans-serif;
+    font-family: "SUSE", sans-serif;
     flex-grow: 1;
     border: 1px solid #d1d5db;
     padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
 }
 .chat-send-button {
-    font-family: 'SUSE Intl', sans-serif;
+    font-family: "SUSE", sans-serif;
     padding: 0.5rem 1rem;
     background-color: #14b8a6;
     color: white;
