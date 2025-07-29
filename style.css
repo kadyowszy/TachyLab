@@ -1,3 +1,4 @@
+/* --- Base and Layout Styles --- */
 html, body {
     height: 100%;
     margin: 0;
@@ -7,19 +8,37 @@ body {
     background-color: #f0f2f5;
     color: #333;
     overflow-x: hidden;
-    display: flex;
-    align-items: center;
-    transition: align-items 0.8s ease-in-out;
-}
-
-body.signed-up {
-    align-items: flex-start;
 }
 
 #page-container {
     width: 100%;
+    max-width: 896px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
 }
 
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+/* --- Initial State (Pre-Signup) --- */
+body:not(.signed-up) #page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+body:not(.signed-up) .header,
+body:not(.signed-up) #shrine,
+body:not(.signed-up) #gallery,
+body:not(.signed-up) #page-footer {
+    display: none;
+}
+
+/* --- Signed-Up State --- */
 #gallery, #page-footer, #shrine {
     opacity: 0;
     transition: opacity 1s ease-in-out 0.5s;
@@ -31,26 +50,100 @@ body.signed-up #shrine {
     opacity: 1;
 }
 
+/* --- Header Styles --- */
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.header-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #047857;
+}
+.header-subtitle {
+    margin-top: 0.5rem;
+    font-size: 1.125rem;
+    color: #4b5563;
+}
+
+/* --- Counter Section --- */
+.counter-section {
+    text-align: center;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+.count-display {
+    font-size: 3.75rem;
+    font-weight: 700;
+    color: #14b8a6;
+    margin: 1rem 0;
+}
+.count-text {
+    font-size: 1.125rem;
+    color: #374151;
+    margin-bottom: 1.5rem;
+}
+.signup-button {
+    font-family: 'SUSE Intl', sans-serif;
+    font-weight: 700;
+    padding: 0.75rem 2rem;
+    font-size: 1.125rem;
+    color: white;
+    background-color: #14b8a6;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+.signup-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+.signup-button.signed-up {
+    background-color: #9ca3af; /* gray-400 */
+}
+
+
+/* --- Shared Section Styles --- */
 .dotted-border {
     border-top: 2px dotted #a0aec0;
     border-bottom: 2px dotted #a0aec0;
     padding: 0.5rem 0;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #374151;
+}
+.section-subtitle {
+    color: #6b7280;
 }
 
-.signup-button {
-    transition: background-color 0.3s ease-in-out;
-}
-
-.signup-button:disabled {
-    cursor: not-allowed;
+/* --- Gallery Section --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1.5rem;
 }
 .gallery-item {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    display: block;
     border: 1px solid #ddd;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .gallery-item:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* --- Shrine and Chat Styles --- */
@@ -98,16 +191,43 @@ body.signed-up #shrine {
     gap: 0.5rem;
 }
 .chat-input {
+    font-family: 'SUSE Intl', sans-serif;
     flex-grow: 1;
     border: 1px solid #d1d5db;
     padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
 }
 .chat-send-button {
+    font-family: 'SUSE Intl', sans-serif;
     padding: 0.5rem 1rem;
     background-color: #14b8a6;
     color: white;
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
+}
+
+/* --- Footer --- */
+#page-footer {
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 4rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+/* --- Responsive Design --- */
+@media (min-width: 640px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 768px) {
+    .header-title {
+        font-size: 3rem;
+    }
+    .gallery-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 }
