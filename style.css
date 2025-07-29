@@ -11,7 +11,7 @@ body {
     align-items: center;
     transition: align-items 0.8s ease-in-out;
 }
-*/
+
 body.signed-up {
     align-items: flex-start;
 }
@@ -31,9 +31,6 @@ body.signed-up #shrine {
     opacity: 1;
 }
 
-.font-orbitron {
-    font-family: 'Orbitron', sans-serif;
-}
 .dotted-border {
     border-top: 2px dotted #a0aec0;
     border-bottom: 2px dotted #a0aec0;
@@ -56,6 +53,7 @@ body.signed-up #shrine {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
+/* --- Shrine and Chat Styles --- */
 .shrine-section {
     background-color: white;
     padding: 2rem;

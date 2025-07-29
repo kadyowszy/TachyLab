@@ -1,8 +1,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, runTransaction, onSnapshot, increment, collection, addDoc, serverTimestamp, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, onSnapshot, increment, collection, addDoc, serverTimestamp, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // --- DOM ELEMENTS ---
+const container = document.getElementById('page-container');
 const countEl = document.getElementById('guinea-pig-count');
 const btn = document.getElementById('signup-btn');
 const chatBox = document.getElementById('chat-box');
@@ -33,6 +34,7 @@ function runLocalMode(errorMessage = "Firebase not configured. Running in local-
         document.body.classList.add('signed-up');
         btn.disabled = true;
         btn.textContent = 'You are now a guinea pig!';
+        btn.classList.add('signed-up');
     } else {
         btn.disabled = false;
         btn.textContent = 'Sign up to be guinea pig';
@@ -48,6 +50,7 @@ function runLocalMode(errorMessage = "Firebase not configured. Running in local-
             document.body.classList.add('signed-up');
             btn.disabled = true;
             btn.textContent = 'You are now a guinea pig!';
+            btn.classList.add('signed-up');
         }
     });
 }
@@ -86,8 +89,7 @@ async function main() {
                 document.body.classList.add('signed-up');
                 btn.disabled = true;
                 btn.textContent = 'You are now a guinea pig!';
-                btn.classList.remove('bg-teal-500', 'hover:bg-teal-600');
-                btn.classList.add('bg-gray-400');
+                btn.classList.add('signed-up');
             } else {
                 btn.disabled = false;
                 btn.textContent = 'Sign up to be guinea pig';
@@ -110,8 +112,7 @@ async function main() {
             
             document.body.classList.add('signed-up');
             btn.textContent = 'You are now a guinea pig!';
-            btn.classList.remove('bg-teal-500', 'hover:bg-teal-600');
-            btn.classList.add('bg-gray-400');
+            btn.classList.add('signed-up');
 
         } catch (e) {
             console.error("Failed to update counter:", e);
