@@ -33,7 +33,6 @@ body:not(.signed-up) #page-container {
     min-height: 100vh;
 }
 
-body:not(.signed-up) .header,
 body:not(.signed-up) #shrine,
 body:not(.signed-up) #gallery,
 body:not(.signed-up) #page-footer {
