@@ -1,0 +1,58 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    overflow-x: hidden;
+}
+
+#page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+#page-container > main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center signup section vertically */
+    transition: justify-content 0.8s ease-in-out;
+}
+#page-container.signed-up > main {
+    justify-content: flex-start; /* Move signup section to top */
+}
+
+/* Initially hide gallery and footer */
+#gallery, #page-footer {
+    opacity: 0;
+    transition: opacity 1s ease-in-out 0.5s;
+}
+/* When signed up, make them visible */
+#page-container.signed-up #gallery,
+#page-container.signed-up #page-footer {
+    opacity: 1;
+}
+
+/* Additional non-Tailwind styles for specific elements */
+.font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+}
+.dotted-border {
+    border-top: 2px dotted #a0aec0;
+    border-bottom: 2px dotted #a0aec0;
+    padding: 0.5rem 0;
+}
+.signup-button:disabled {
+    cursor: not-allowed;
+}
+.gallery-item {
+    border: 1px solid #ddd;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
