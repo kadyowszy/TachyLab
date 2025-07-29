@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
-
 /* --- Base and Layout Styles --- */
 html, body {
     height: 100%;
@@ -10,6 +8,7 @@ body {
     background-color: #f0f2f5;
     color: #333;
     overflow-x: hidden;
+    font-size: 16px; /* Base font size */
 }
 
 #page-container {
@@ -17,6 +16,7 @@ body {
     max-width: 896px;
     margin: 0 auto;
     padding: 2rem 1rem;
+    box-sizing: border-box;
 }
 
 .main-content {
@@ -219,17 +219,53 @@ body.signed-up #shrine {
 }
 
 /* --- Responsive Design --- */
-@media (min-width: 640px) {
+
+/* Mobile Phones */
+@media (max-width: 640px) {
+    .header-title {
+        font-size: 1.875rem;
+    }
+    .count-display {
+        font-size: 3rem;
+    }
+    .counter-section, .shrine-section {
+        padding: 1.5rem;
+    }
+}
+
+/* Tablets */
+@media (min-width: 641px) {
     .gallery-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
+/* Small Desktops */
 @media (min-width: 768px) {
     .header-title {
         font-size: 3rem;
     }
     .gallery-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* Large Desktops (2K screens) */
+@media (min-width: 1920px) {
+    body {
+        font-size: 18px; /* Increase base font size */
+    }
+    #page-container {
+        max-width: 1280px; /* Wider container */
+    }
+}
+
+/* Extra Large Desktops (4K screens) */
+@media (min-width: 2560px) {
+    body {
+        font-size: 20px; /* Further increase base font size */
+    }
+    #page-container {
+        max-width: 1536px; /* Even wider container */
     }
 }
