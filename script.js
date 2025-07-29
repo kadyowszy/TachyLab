@@ -81,6 +81,8 @@ async function main() {
                 container.classList.add('signed-up');
                 btn.disabled = true;
                 btn.textContent = 'You are now a guinea pig!';
+                btn.classList.remove('bg-teal-500', 'hover:bg-teal-600');
+                btn.classList.add('bg-gray-400');
             } else {
                 btn.disabled = false;
                 btn.textContent = 'Sign up to be guinea pig';
@@ -97,10 +99,13 @@ async function main() {
         try {
             const counterUpdatePromise = setDoc(counterRef, { count: increment(1) }, { merge: true });
             const userUpdatePromise = setDoc(userStatusRef, { hasSignedUp: true });
+
             await Promise.all([counterUpdatePromise, userUpdatePromise]);
             
             container.classList.add('signed-up');
             btn.textContent = 'You are now a guinea pig!';
+            btn.classList.remove('bg-teal-500', 'hover:bg-teal-600');
+            btn.classList.add('bg-gray-400');
 
         } catch (e) {
             console.error("Failed to update counter:", e);
