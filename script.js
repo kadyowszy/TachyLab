@@ -8,16 +8,14 @@ const countEl = document.getElementById('guinea-pig-count');
 const btn = document.getElementById('signup-btn');
 
 // --- FIREBASE SETUP ---
-const firebaseConfigString = import.meta.env.VITE_FIREBASE_CONFIG;
-let firebaseConfig;
-
-if (firebaseConfigString) {
-    try {
-        firebaseConfig = JSON.parse(firebaseConfigString);
-    } catch (e) {
-        console.error("Failed to parse Firebase config:", e);
-    }
-}
+const firebaseConfig = {
+  apiKey: "AIzaSyDUomBI0i9xQTWnxrJvJXzzQ4u8A8_pU1U",
+  authDomain: "tachy-lab.firebaseapp.com",
+  projectId: "tachy-lab",
+  storageBucket: "tachy-lab.appspot.com",
+  messagingSenderId: "1013659954856",
+  appId: "1:1013659954856:web:69bab1fe00d285b66b9c9d"
+};
 
 // --- LOCAL MODE (FALLBACK) ---
 function runLocalMode() {
@@ -52,7 +50,7 @@ function runLocalMode() {
 
 // --- MAIN LOGIC ---
 async function main() {
-    if (!firebaseConfig) {
+    if (!firebaseConfig || firebaseConfig.apiKey === "PASTE_YOUR_API_KEY_HERE") {
         runLocalMode();
         return;
     }
@@ -64,7 +62,6 @@ async function main() {
     try {
         await signInAnonymously(auth);
     } catch (error) {
-        console.error("Firebase authentication failed:", error);
         runLocalMode();
         return;
     }
@@ -91,7 +88,6 @@ async function main() {
             await setDoc(counterRef, { count: 0 });
         }
     }, (error) => {
-        console.error("Error listening to counter updates:", error);
         runLocalMode();
     });
 
@@ -110,7 +106,6 @@ async function main() {
             container.classList.add('signed-up');
             btn.textContent = 'You are now a guinea pig!';
         } catch (e) {
-            console.error("Transaction failed: ", e);
             btn.disabled = false;
             btn.textContent = 'Sign up failed, try again!';
         }
