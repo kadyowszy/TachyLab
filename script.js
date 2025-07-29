@@ -1,11 +1,14 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, runTransaction, onSnapshot, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, runTransaction, onSnapshot, increment, collection, addDoc, serverTimestamp, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // --- DOM ELEMENTS ---
-const container = document.getElementById('page-container');
 const countEl = document.getElementById('guinea-pig-count');
 const btn = document.getElementById('signup-btn');
+const chatBox = document.getElementById('chat-box');
+const chatForm = document.getElementById('chat-form');
+const chatInput = document.getElementById('chat-input');
+
 
 // --- FIREBASE SETUP ---
 const firebaseConfig = {
@@ -27,7 +30,7 @@ function runLocalMode(errorMessage = "Firebase not configured. Running in local-
     countEl.textContent = num.toLocaleString('en-US');
 
     if (localStorage.getItem(signedKey) === 'true') {
-        container.classList.add('signed-up');
+        document.body.classList.add('signed-up');
         btn.disabled = true;
         btn.textContent = 'You are now a guinea pig!';
     } else {
@@ -42,7 +45,7 @@ function runLocalMode(errorMessage = "Firebase not configured. Running in local-
             localStorage.setItem(countKey, num);
             localStorage.setItem(signedKey, 'true');
             
-            container.classList.add('signed-up');
+            document.body.classList.add('signed-up');
             btn.disabled = true;
             btn.textContent = 'You are now a guinea pig!';
         }
@@ -70,7 +73,9 @@ async function main() {
     const userId = auth.currentUser.uid;
     const counterRef = doc(db, "globalCounter", "guineaPigs");
     const userStatusRef = doc(db, "users", userId);
+    const shrineMessagesRef = collection(db, "shrineMessages");
 
+    // --- REAL-TIME COUNTER LOGIC ---
     onSnapshot(counterRef, async (docSnap) => {
         if (docSnap.exists()) {
             const count = docSnap.data().count || 0;
@@ -78,7 +83,7 @@ async function main() {
 
             const userDoc = await getDoc(userStatusRef);
             if (userDoc.exists() && userDoc.data().hasSignedUp) {
-                container.classList.add('signed-up');
+                document.body.classList.add('signed-up');
                 btn.disabled = true;
                 btn.textContent = 'You are now a guinea pig!';
                 btn.classList.remove('bg-teal-500', 'hover:bg-teal-600');
@@ -94,6 +99,7 @@ async function main() {
         runLocalMode("Error listening to counter. Running in local mode.");
     });
 
+    // --- SIGNUP BUTTON LOGIC ---
     btn.addEventListener('click', async () => {
         btn.disabled = true;
         try {
@@ -102,7 +108,7 @@ async function main() {
 
             await Promise.all([counterUpdatePromise, userUpdatePromise]);
             
-            container.classList.add('signed-up');
+            document.body.classList.add('signed-up');
             btn.textContent = 'You are now a guinea pig!';
             btn.classList.remove('bg-teal-500', 'hover:bg-teal-600');
             btn.classList.add('bg-gray-400');
@@ -111,6 +117,34 @@ async function main() {
             console.error("Failed to update counter:", e);
             btn.disabled = false;
             btn.textContent = 'Sign up failed, try again!';
+        }
+    });
+
+    // --- REAL-TIME CHAT LOGIC ---
+    const q = query(shrineMessagesRef, orderBy("createdAt", "desc"), limit(25));
+    onSnapshot(q, (querySnapshot) => {
+        chatBox.innerHTML = '';
+        querySnapshot.forEach((doc) => {
+            const message = doc.data();
+            const messageEl = document.createElement('div');
+            messageEl.classList.add('chat-message');
+            messageEl.textContent = message.text;
+            chatBox.appendChild(messageEl);
+        });
+    });
+
+    // --- CHAT FORM SUBMISSION LOGIC ---
+    chatForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const messageText = chatInput.value.trim();
+
+        if (messageText) {
+            chatInput.value = '';
+            await addDoc(shrineMessagesRef, {
+                text: messageText,
+                createdAt: serverTimestamp(),
+                uid: userId
+            });
         }
     });
 }
