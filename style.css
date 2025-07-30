@@ -17,7 +17,7 @@ body {
     margin: 0 auto;
     padding: 1rem; /* Reduced padding */
     box-sizing: border-box;
-    transition: padding-top 0.8s ease-in-out; /* Added for smooth movement */
+    transition: padding-top 0.8s ease-in-out; /* This creates the movement effect */
 }
 
 .main-content {
@@ -28,7 +28,7 @@ body {
 
 /* --- Initial State (Pre-Signup) --- */
 body:not(.signed-up) #page-container {
-    padding-top: 25vh; /* Adjusted for better centering */
+    padding-top: 25vh; /* Pushes content down to center it */
 }
 
 body:not(.signed-up) #shrine,
@@ -40,7 +40,8 @@ body:not(.signed-up) #page-footer {
 /* --- Signed-Up State --- */
 #gallery, #page-footer, #shrine {
     opacity: 0;
-    transition: opacity 1s ease-in-out 0.5s;
+    /* The fade-in transition will now start after the movement is finished */
+    transition: opacity 1s ease-in-out 0.8s; 
 }
 
 body.signed-up #gallery,
