@@ -31,7 +31,6 @@ body:not(.signed-up) #page-container {
     padding-top: 25vh; /* Adjusted for better centering */
 }
 
-body:not(.signed-up) .header,
 body:not(.signed-up) #shrine,
 body:not(.signed-up) #gallery,
 body:not(.signed-up) #page-footer {
