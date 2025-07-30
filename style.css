@@ -15,7 +15,7 @@ body {
     width: 100%;
     max-width: 896px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 1rem; /* Reduced padding */
     box-sizing: border-box;
     transition: padding-top 0.8s ease-in-out; /* Added for smooth movement */
 }
@@ -23,7 +23,7 @@ body {
 .main-content {
     display: flex;
     flex-direction: column;
-    gap: 5rem; /* Increased gap for better spacing */
+    gap: 2.5rem; /* Reduced gap */
 }
 
 /* --- Initial State (Pre-Signup) --- */
@@ -53,8 +53,8 @@ body.signed-up #shrine {
 /* --- Header Styles --- */
 .header {
     text-align: center;
-    margin-top: 2rem; /* Added top margin */
-    margin-bottom: 4rem; /* Increased bottom margin */
+    margin-top: 1rem; /* Reduced top margin */
+    margin-bottom: 2rem; /* Reduced bottom margin */
 }
 .header-title {
     font-size: 2.25rem;
@@ -70,7 +70,7 @@ body.signed-up #shrine {
 /* --- Counter Section --- */
 .counter-section {
     text-align: center;
-    padding: 2rem;
+    padding: 1.5rem;
     background-color: white;
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -79,12 +79,12 @@ body.signed-up #shrine {
     font-size: 3.75rem;
     font-weight: 700;
     color: #14b8a6;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
 }
 .count-text {
     font-size: 1.125rem;
     color: #374151;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 .signup-button {
     font-family: "SUSE", sans-serif;
@@ -112,7 +112,7 @@ body.signed-up #shrine {
     border-top: 2px dotted #a0aec0;
     border-bottom: 2px dotted #a0aec0;
     padding: 0.5rem 0;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem; /* Reduced margin */
     text-align: center;
 }
 .section-title {
@@ -150,7 +150,7 @@ body.signed-up #shrine {
 /* --- Shrine and Chat Styles --- */
 .shrine-section {
     background-color: white;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
@@ -158,7 +158,7 @@ body.signed-up #shrine {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem; /* Reduced gap */
 }
 .shrine-image {
     width: 150px;
@@ -212,7 +212,7 @@ body.signed-up #shrine {
 #page-footer {
     text-align: center;
     padding: 2rem 0;
-    margin-top: 4rem;
+    margin-top: 2rem; /* Reduced margin */
     font-size: 0.875rem;
     color: #6b7280;
 }
