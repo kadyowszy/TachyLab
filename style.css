@@ -24,28 +24,15 @@ body {
     gap: 2.5rem;
 }
 
-body:not(.signed-up) {
-    display: flex;
-    align-items: center;
-}
-
 body:not(.signed-up) #shrine,
 body:not(.signed-up) #gallery,
 body:not(.signed-up) #page-footer {
     display: none;
 }
 
-#initial-view {
-    transition: transform 0.8s ease-in-out;
-}
-
-body:not(.signed-up) #initial-view {
-    transform: translateY(-10vh);
-}
-
 #gallery, #page-footer, #shrine {
     opacity: 0;
-    transition: opacity 1s ease-in-out 0.8s; 
+    transition: opacity 1s ease-in-out 0.2s; 
 }
 
 body.signed-up #gallery,
